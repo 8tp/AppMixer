@@ -132,6 +132,9 @@ final class AudioTapManager {
 
     /// Activate the driver: set AppMixer as default output, start forwarding audio to real output
     func activate() {
+        // On startup, check if a previous session crashed with AppMixer still as default
+        AppDelegate.restoreSavedRealDevice()
+
         guard !isForwarding else { return }
 
         guard let deviceID = findAppMixerDevice() else {
@@ -156,6 +159,11 @@ final class AudioTapManager {
         }
 
         realOutputDeviceID = originalDefaultDevice
+
+        // Persist the real device UID so we can recover from crashes
+        if let uid = getDeviceUID(realOutputDeviceID) {
+            AppDelegate.saveRealDeviceUID(uid)
+        }
 
         // Set AppMixer as the default output device
         setDefaultOutputDevice(appMixerDeviceID)
