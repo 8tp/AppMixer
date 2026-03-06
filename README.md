@@ -74,7 +74,7 @@ AppMixer uses a **HAL (Hardware Abstraction Layer) virtual audio driver** to int
 
 ```bash
 # Clone
-git clone https://github.com/YOUR_USERNAME/app-mixer.git
+git clone https://github.com/8tp/AppMixer.git
 cd app-mixer
 
 # Build the HAL driver
